@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Camera Preview</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Camera Stream</title>
 </head>
 <body>
-  <video id="video" width="640" height="480"></video>
+	<video id="video" style="width:480px;height:360px;"></video>
+	<script>
+		// ビデオ要素を取得する
+		var video = document.getElementById('video');
 
-  <script>
-    var video = document.getElementById('video');
-
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-      .then(function(stream) {
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch(function(err) {
-        console.log("An error occurred: " + err);
-      });
-  </script>
+		// getUserMediaを使って、カメラからの映像を取得する
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({ video: true })
+			.then(function(stream) {
+				video.srcObject = stream;
+				video.play();
+			})
+			.catch(function(err) {
+				console.log('getUserMedia failed: ' + err);
+			});
+		}
+		
+		// ビデオ要素に映像が表示されるまで待ってから、サイズを設定する
+		video.onloadedmetadata = function() {
+			setVideoSize(video);
+		};
+		
+		// ウィンドウサイズが変更されたら、ビデオサイズも変更する
+		window.onresize = function() {
+			setVideoSize(video);
+		};
+		
+		// ビデオサイズを設定する関数
+		function setVideoSize(video) {
+			var aspectRatio = video.videoWidth / video.videoHeight;
+			var videoHeight = window.innerHeight;
+			var videoWidth = videoHeight * aspectRatio;
+			video.style.width = videoWidth + 'px';
+			video.style.height = videoHeight + 'px';
+		}
+	</script>
 </body>
 </html>
