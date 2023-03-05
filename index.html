@@ -5,8 +5,9 @@
   <title>Camera Preview</title>
 </head>
 <body>
-  <video id="video" width="640" height="480" autoplay></video>
-  <button id="snap">Take Snapshot</button>
+  <video id="video" width="640" height="480"></video>
+  <button id="startButton">Start</button>
+  <button id="stopButton">Stop</button>
   <canvas id="canvas" width="640" height="480"></canvas>
 
   <script>
@@ -15,14 +16,30 @@
     var context = canvas.getContext('2d');
 
     // カメラを起動する
+    var stream;
     navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
         video.srcObject = stream;
+        window.stream = stream;
         video.play();
       })
       .catch(function(err) {
         console.log("An error occurred: " + err);
       });
+
+    // スタートボタンで再生する
+    var startButton = document.getElementById('startButton');
+    startButton.addEventListener('click', function() {
+      video.play();
+    });
+
+    // ストップボタンで停止する
+    var stopButton = document.getElementById('stopButton');
+    stopButton.addEventListener('click', function() {
+      video.pause();
+      video.srcObject = null;
+      stream.getTracks()[0].stop();
+    });
 
     // スナップショットを撮る
     var snap = document.getElementById('snap');
