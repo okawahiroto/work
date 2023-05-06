@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- ラベルのテキストを`<br>`タグで改行する場合には、
+`<label>`タグ内に`<br>`タグを含めず、CSSを使用してラジオボタンとテキストのレイアウトを変更することができます。 -->
+<!-- 以下は、CSSを使用してラジオボタンとテキストを横並びにする例です。 -->
+
+  <style>
+    label {
+      display: inline-flex;
+      align-items: center;
+    }
+    label input[type="radio"] {
+      margin-right: 5px;
+    }
+  </style>
+
+  <label>
+    <input type="radio" name="option1" value="1">
+    <span>ハ長調<br>C-dur</span>
+  </label>
+  <label>
+    <input type="radio" name="option1" value="2">
+    <span>Option 2<br>text</span>
+  </label>
+
+    <!-- この例では、`<label>`タグ内のテキストを`<span>`タグで囲んでいます。
+      CSSでは、`display: inline-flex;`を使用して、ラジオボタンとテキストを横並びにしています。
+      また、`align-items: center;`を使用して、ラジオボタンとテキストの垂直方向の位置を中央に合わせています。
+      さらに、`label input[type="radio"]`のセレクターを使用して、ラジオボタンの間に適切な間隔を設定しています。 -->
+</body>
+</html>
