@@ -13,14 +13,6 @@ function handleChange(event) {
   const radioValue = element.radio.value;
   console.log(radioValue);
   result.textContent = radioValue;
-
-  switch (radioValue) {
-    case 'A':
-      img.src = 'img/A.png';
-      break;
-    case 'B':
-      img.src = 'img/B.png';
-      break;
-  }
+  img.src = 'img/' + radioValue + '.png'
 }
 
