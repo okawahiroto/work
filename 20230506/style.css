@@ -1,0 +1,7 @@
+label {
+  display: inline-flex;
+  align-items: center;
+}
+label input[type="radio"] {
+  margin-right: 5px;
+}
