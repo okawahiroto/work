@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
 <body>
@@ -13,9 +14,30 @@
     <input type="radio" name="radio" value="B">B
   </form>
 
+  <form id="keyGroupSharp">
+    <div>
+      <label for="">
+        <input type="radio" name="key" value="C" checked>ハ長調<br>C-dur
+        <input type="radio" name="key" value="a">イ短調<br>a-moll
+      </label>
+    </div>
+    <div>
+      <label for="">
+        <input type="radio" name="key" value="G">ト長調<br>G-dur
+        <input type="radio" name="key" value="e">ホ短調<br>e-moll
+      </label>
+    </div>
+  </form>
+
+  <form id="keyGroupFlat" style="display: none;">
+    <input type="radio" name="key" value="C" checked>ハ長調・C-dur
+    <input type="radio" name="key" value="a">イ短調・a-moll
+  </form>
+
+
   <p>選択されているのは、</p>
-  <div id="result">A</div>
-  <img id="img" src="img/A.png" alt="">
+  <div id="result">C</div>
+  <img id="img" src="img/C.png" alt="">
 
   <script src="app.js"></script>
 </body>
