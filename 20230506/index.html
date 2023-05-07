@@ -13,20 +13,19 @@
     <input type="radio" name="radio" value="A" checked>A
     <input type="radio" name="radio" value="B">B
   </form>
-
   <form id="keyGroupSharp">
-    <div>
-      <label for="">
-        <input type="radio" name="key" value="C" checked>ハ長調<br>C-dur
-        <input type="radio" name="key" value="a">イ短調<br>a-moll
-      </label>
-    </div>
-    <div>
-      <label for="">
-        <input type="radio" name="key" value="G">ト長調<br>G-dur
-        <input type="radio" name="key" value="e">ホ短調<br>e-moll
-      </label>
-    </div>
+      <div>
+        <input type="radio" name="key" value="C" id="keyGroupSharpC" checked>
+        <label for="keyGroupSharpC">ハ長調<br>C-dur</label>
+        <input type="radio" name="key" value="a" id="keyGroupSharpa">
+        <label for="keyGroupSharpa">イ短調<br>a-moll</label>
+      </div>
+      <div>
+        <input type="radio" name="key" value="G" id="keyGroupSharpG">
+        <label for="keyGroupSharpG">ト長調<br>G-dur</label>
+        <input type="radio" name="key" value="e" id="keyGroupSharpe">
+        <label for="keyGroupSharpe">ホ短調<br>e-moll</label>
+      </div>
   </form>
 
   <form id="keyGroupFlat" style="display: none;">
