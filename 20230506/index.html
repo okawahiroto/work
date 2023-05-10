@@ -8,7 +8,21 @@
   <title>Document</title>
 </head>
 <body>
-<!-- A・B選択できるラジオボタン -->
+
+  <select class="form-select" id="tuningFrequency" aria-label="基準ピッチの選択" >
+    <option value="220">220</option>
+    <option value="438">438</option>
+    <option value="439">439</option>
+    <option value="440">440</option>
+    <option value="441">441</option>
+    <option value="442" selected>442</option>
+    <option value="443">443</option>
+    <option value="444">444</option>
+    <option value="445">445</option>
+    <option value="880">880</option>
+  </select>
+
+  <!-- A・B選択できるラジオボタン -->
   <form id="radioGroup">
     <input type="radio" name="radio" value="A" checked>A
     <input type="radio" name="radio" value="B">B
