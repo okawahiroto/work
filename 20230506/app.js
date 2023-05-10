@@ -10,6 +10,8 @@ const buttonThird = document.getElementById("buttonThird");
 const buttonFifth = document.getElementById("buttonFifth");
 const buttonOff = document.getElementById("buttonOff");
 
+let rootOn = false;
+
 console.log(element);
 console.log(element.key.value);
 
@@ -22,3 +24,35 @@ function handleChange(event) {
   img.src = 'img/' + keyValue + '.png'
 }
 
+// オシレーターを生成
+const audioCtx = new AudioContext();
+const gainNode = audioCtx.createGain();
+let oscillator01 = audioCtx.createOscillator();
+
+// ゲインノードの設定
+gainNode.gain.value = 0.1;
+
+// 出力先に接続して、再生開始(gainNodeは音量を調整するオブジェクト)
+gainNode.connect(audioCtx.destination);
+
+buttonRoot.addEventListener('click', function() {
+  console.log('buttonRoot');
+  rootOn = !rootOn;
+  if (rootOn) {
+    oscillator01.frequency.value = 440;
+    oscillator01.type = "sine";
+    oscillator01.connect(gainNode);
+    oscillator01.start();
+  } else {
+    resetButtonRoot();
+  }
+});
+
+// ボタン初期化
+function resetButtonRoot() {
+  rootOn = false;
+  oscillator01.stop();
+  buttonRoot.classList.remove("btn-danger");
+  buttonRoot.classList.add("btn-secondary");
+  oscillator01 = audioCtx.createOscillator();
+};
