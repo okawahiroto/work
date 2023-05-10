@@ -24,8 +24,8 @@
 
   <!-- A・B選択できるラジオボタン -->
   <form id="radioGroup">
-    <input type="radio" name="radio" value="A" checked>A
-    <input type="radio" name="radio" value="B">B
+    <input type="radio" name="radio" value="A" checked>#
+    <input type="radio" name="radio" value="B">b
   </form>
   <form id="keyGroupSharp">
       <div>
@@ -40,7 +40,13 @@
         <input type="radio" name="key" value="e" id="keyGroupSharpe">
         <label for="keyGroupSharpe">ホ短調<br>e-moll</label>
       </div>
-  </form>
+      <div>
+        <input type="radio" name="key" value="D" id="keyGroupSharpG">
+        <label for="keyGroupSharpG">ニ長調<br>D-dur</label>
+        <input type="radio" name="key" value="b" id="keyGroupSharpe">
+        <label for="keyGroupSharpe">ロ短調<br>b-moll</label>
+      </div>
+    </form>
 
   <form id="keyGroupFlat" style="display: none;">
     <input type="radio" name="key" value="C" checked>ハ長調・C-dur
