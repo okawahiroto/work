@@ -1,0 +1,13 @@
+/* リストの・を非表示、2列にする。 */
+ul {
+  list-style: none;
+  column-count: 2;
+}
+
+/* ラベルのテキストを改行し、行頭を揃える。(ChatGPT) */
+label {
+  /* ラベル内の要素を横並びにする。 */
+  display: inline-flex;
+  /* ラベル内の要素を縦方向に中央揃えにする。 */
+  align-items: center;
+}
