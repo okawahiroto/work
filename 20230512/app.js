@@ -5,15 +5,15 @@ const buttonThird = document.getElementById("buttonThird");
 const buttonFifth = document.getElementById("buttonFifth");
 const buttonOff = document.getElementById("buttonOff");
 
-// const halfStepValue = document.getElementById("C");
-// console.log(halfStepValue.value)
-
 // フォーム要素を取得
 const form = document.querySelector('form');
 
+// 基準音の周波数(本番はセレクトで選ばせる)
+let referenceTone = 440;
+
 // halfStepの初期値を設定
 let halfStep = -9;
-let freq = 261.6255653005986;
+let rootFrequency = 261.6255653005986;
 
 // rootOnフラグ
 let rootOn = false;
@@ -23,23 +23,14 @@ form.addEventListener('change', (event) => {
   if (event.target.name === 'keys') {
     halfStep = event.target.value
 
-    // rootFrequency関数に、基準音の周波数,Aからどれだけ離れているかを
-    // 引数で渡す。
-    rootFrequency(referenceTone, halfStep);
+    // calcRootFrequency関数に、基準音の周波数,Aからどれだけ離れているかを引数で渡す。
+    calcRootFrequency(referenceTone, halfStep);
   }
 });
 
-// 基準音の周波数(本番はセレクトで選ばせる)
-let referenceTone = 440;
-
-// Aから半音いくつ分離れているか(-9～+3)
-let Cdur = {
-  halfStep : -9,
-};
-
 // // 調整(各音)ごとの周波数を計算する。
-function rootFrequency(referenceTone, halfStep) {
-  freq = referenceTone * Math.pow(2, halfStep / 12);
+function calcRootFrequency(referenceTone, halfStep) {
+  rootFrequency = referenceTone * Math.pow(2, halfStep / 12);
   console.log(referenceTone, halfStep, freq);
 }
 
@@ -56,7 +47,7 @@ buttonRoot.addEventListener('click', function() {
   if (rootOn) {
     // frequency01 = tuningFrequency.value * Math.pow(2, harfStepOffset/12);
     // frequency01 = tuningFrequency.value;
-    oscillator.frequency.value = freq;
+    oscillator.frequency.value = rootFrequency;
     oscillator.type = "sine";
     oscillator.connect(gainNode);
     oscillator.start();
@@ -65,6 +56,21 @@ buttonRoot.addEventListener('click', function() {
   }
 });
 
+//Offボタンクリック時
+buttonOff.addEventListener("click", function() {
+  console.log("Off");
+  if (rootOn) {
+    resetButtonRoot();
+  }
+  // if (thirdOn) {
+  //   resetButtonThird();
+  // }
+  // if (fifthOn) {
+  //   resetButtonFifth();
+  // }
+});
+
+// ボタン初期化
 function resetButtonRoot() {
   rootOn = false;
   oscillator.stop();
