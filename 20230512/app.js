@@ -1,12 +1,10 @@
 console.log('app.js loaded');
 
+const radioGroup = document.querySelector('#radioGroup');
 const buttonRoot = document.getElementById("buttonRoot");
 const buttonThird = document.getElementById("buttonThird");
 const buttonFifth = document.getElementById("buttonFifth");
 const buttonOff = document.getElementById("buttonOff");
-
-// フォーム要素を取得
-const form = document.querySelector('form');
 
 // 基準音の周波数(本番はセレクトで選ばせる)
 let referenceTone = 440;
@@ -14,67 +12,135 @@ let referenceTone = 440;
 // halfStepの初期値を設定
 let halfStep = -9;
 let rootFrequency = 261.6255653005986;
+let thirdFrequency = rootFrequency * 5 / 4;
+let fifthFrequency = rootFrequency * 3 / 2;
+// 長調か短調か判断する変数
+let selectedTonality = 'Major';
 
 // rootOnフラグ
 let rootOn = false;
-
-// ラジオボタンの変更を監視し、選択された値をコンソールに表示する
-form.addEventListener('change', (event) => {
-  if (event.target.name === 'keys') {
-    halfStep = event.target.value
-
-    // calcRootFrequency関数に、基準音の周波数,Aからどれだけ離れているかを引数で渡す。
-    calcRootFrequency(referenceTone, halfStep);
-  }
-});
-
-// // 調整(各音)ごとの周波数を計算する。
-function calcRootFrequency(referenceTone, halfStep) {
-  rootFrequency = referenceTone * Math.pow(2, halfStep / 12);
-  console.log(referenceTone, halfStep, freq);
-}
+let thirdOn = false;
+let fifthOn = false;
 
 const audioCtx = new AudioContext();
 const gainNode = audioCtx.createGain();
-let oscillator = audioCtx.createOscillator();
+
+let rootOscillator = audioCtx.createOscillator();
+let thirdOscillator = audioCtx.createOscillator();
+let fifthOscillator = audioCtx.createOscillator();
 
 gainNode.gain.value = 0.1;
 gainNode.connect(audioCtx.destination);
 
+
+// 調を選択した時に、(音が鳴っていれば)音を消して、根音が何か(Aから半音いくつ離れているか)、長調・短調か判別
+radioGroup.addEventListener('change', keySelect);
+
+function keySelect(event) {
+  resetAll();
+  halfStep = event.target.value;
+  selectedTonality = event.target.id;
+  selectedTonality = selectedTonality.slice(-5);
+  console.log(selectedTonality);
+  calcFrequency(referenceTone, halfStep, selectedTonality);
+}
+
+// 基準の周波数・根音・長短から、根音・3度・5度の周波数を計算
+function calcFrequency(referenceTone, halfStep, selectedTonality) {
+
+  rootFrequency = referenceTone * Math.pow(2, halfStep / 12);
+  if (selectedTonality === 'Major') {
+    thirdFrequency = rootFrequency * 5 / 4;
+  } else {
+      thirdFrequency = rootFrequency * 6 / 5;
+  };
+  fifthFrequency = rootFrequency * 3 / 2;
+  console.log(halfStep, selectedTonality, rootFrequency, thirdFrequency, fifthFrequency);
+}
+
+// Rootボタンクリック
 buttonRoot.addEventListener('click', function() {
   console.log('buttonRoot');
   rootOn = !rootOn;
   if (rootOn) {
-    // frequency01 = tuningFrequency.value * Math.pow(2, harfStepOffset/12);
-    // frequency01 = tuningFrequency.value;
-    oscillator.frequency.value = rootFrequency;
-    oscillator.type = "sine";
-    oscillator.connect(gainNode);
-    oscillator.start();
+    rootOscillator.frequency.value = rootFrequency;
+    rootOscillator.type = "sine";
+    rootOscillator.connect(gainNode);
+    rootOscillator.start();
   } else {
-    resetButtonRoot();
+    resetRoot();
+  }
+  console.log(rootOn);
+});
+
+// Thirdボタンクリック
+buttonThird.addEventListener('click', function() {
+  console.log('buttonThird');
+  thirdOn = !thirdOn;
+  if (thirdOn) {
+    thirdOscillator.frequency.value = thirdFrequency;
+    thirdOscillator.type = "sine";
+    thirdOscillator.connect(gainNode);
+    thirdOscillator.start();
+  } else {
+    resetThird();
   }
 });
 
-//Offボタンクリック時
+// Fifthボタンクリック
+buttonFifth.addEventListener('click', function() {
+  console.log('buttonFifth');
+  fifthOn = !fifthOn;
+  if (fifthOn) {
+    fifthOscillator.frequency.value = fifthFrequency;
+    fifthOscillator.type = "sine";
+    fifthOscillator.connect(gainNode);
+    fifthOscillator.start();
+  } else {
+    resetFifth();
+  }
+});
+
+//Offボタンクリック
 buttonOff.addEventListener("click", function() {
   console.log("Off");
-  if (rootOn) {
-    resetButtonRoot();
-  }
-  // if (thirdOn) {
-  //   resetButtonThird();
-  // }
-  // if (fifthOn) {
-  //   resetButtonFifth();
-  // }
+  resetAll();
+  console.log("Off");
 });
 
-// ボタン初期化
-function resetButtonRoot() {
+// 各音初期化
+function resetRoot() {
   rootOn = false;
-  oscillator.stop();
+  rootOscillator.stop();
   // buttonRoot.classList.remove("btn-danger");
   // buttonRoot.classList.add("btn-secondary");
-  oscillator = audioCtx.createOscillator();
+  rootOscillator = audioCtx.createOscillator();
+};
+
+function resetThird() {
+    thirdOn = false;
+    thirdOscillator.stop();
+    // buttonThird.classList.remove("btn-danger");
+    // buttonThird.classList.add("btn-secondary");
+    thirdOscillator = audioCtx.createOscillator();
+};
+
+function resetFifth() {
+    fifthOn = false;
+    fifthOscillator.stop();
+    // buttonFifth.classList.remove("btn-danger");
+    // buttonFifth.classList.add("btn-secondary");
+    fifthOscillator = audioCtx.createOscillator();
+};
+
+function resetAll() {
+  if (rootOn) {
+    resetRoot();
+  }
+  if (thirdOn) {
+    resetThird();
+  }
+  if (fifthOn) {
+    resetFifth();
+  }
 };
