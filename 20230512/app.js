@@ -1,21 +1,25 @@
 console.log('app.js loaded');
 
+const tuningFrequency = document.getElementById("tuningFrequency");
 const radioGroup = document.querySelector('#radioGroup');
 const buttonRoot = document.getElementById("buttonRoot");
 const buttonThird = document.getElementById("buttonThird");
 const buttonFifth = document.getElementById("buttonFifth");
 const buttonOff = document.getElementById("buttonOff");
 
-// 基準音の周波数(本番はセレクトで選ばせる)
-let referenceTone = 440;
+// 基準音の周波数
+let referenceTone = tuningFrequency.value;
 
-// halfStepの初期値を設定
+// 初期値を設定
 let halfStep = -9;
-let rootFrequency = 261.6255653005986;
+let selectedTonality = 'Major';
+let rootFrequency = referenceTone * Math.pow(2, halfStep / 12);
 let thirdFrequency = rootFrequency * 5 / 4;
 let fifthFrequency = rootFrequency * 3 / 2;
-// 長調か短調か判断する変数
-let selectedTonality = 'Major';
+
+// 初期値表示
+console.log(halfStep, selectedTonality, rootFrequency, thirdFrequency, fifthFrequency);
+
 
 // rootOnフラグ
 let rootOn = false;
@@ -33,6 +37,14 @@ gainNode.gain.value = 0.1;
 gainNode.connect(audioCtx.destination);
 
 
+// 基準音の変更
+tuningFrequency.addEventListener('change', function() {
+  resetAll();
+  referenceTone = tuningFrequency.value;
+  console.log(referenceTone);
+  calcFrequency(referenceTone, halfStep, selectedTonality);
+});
+
 // 調を選択した時に、(音が鳴っていれば)音を消して、根音が何か(Aから半音いくつ離れているか)、長調・短調か判別
 radioGroup.addEventListener('change', keySelect);
 
@@ -41,13 +53,11 @@ function keySelect(event) {
   halfStep = event.target.value;
   selectedTonality = event.target.id;
   selectedTonality = selectedTonality.slice(-5);
-  console.log(selectedTonality);
   calcFrequency(referenceTone, halfStep, selectedTonality);
-}
+};
 
 // 基準の周波数・根音・長短から、根音・3度・5度の周波数を計算
 function calcFrequency(referenceTone, halfStep, selectedTonality) {
-
   rootFrequency = referenceTone * Math.pow(2, halfStep / 12);
   if (selectedTonality === 'Major') {
     thirdFrequency = rootFrequency * 5 / 4;
@@ -56,7 +66,7 @@ function calcFrequency(referenceTone, halfStep, selectedTonality) {
   };
   fifthFrequency = rootFrequency * 3 / 2;
   console.log(halfStep, selectedTonality, rootFrequency, thirdFrequency, fifthFrequency);
-}
+};
 
 // Rootボタンクリック
 buttonRoot.addEventListener('click', function() {
@@ -105,7 +115,6 @@ buttonFifth.addEventListener('click', function() {
 buttonOff.addEventListener("click", function() {
   console.log("Off");
   resetAll();
-  console.log("Off");
 });
 
 // 各音初期化
