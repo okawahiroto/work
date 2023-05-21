@@ -1,31 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
 <body>
+  <select class="form-select" id="tuningFrequency" aria-label="基準ピッチの選択" >
+    <option value="220">220</option>
+    <option value="438">438</option>
+    <option value="439">439</option>
+    <option value="440">440</option>
+    <option value="441">441</option>
+    <option value="442" selected>442</option>
+    <option value="443">443</option>
+    <option value="444">444</option>
+    <option value="445">445</option>
+    <option value="880">880</option>
+  </select>
   <form id="radioGroup">
     <ul>
-      <li><label><input type="radio" name="key" id="CMajor" value="-9" checked><img src="img/g0.png">C dur<br>ハ長調</label></li>
-      <li><label><input type="radio" name="key" id="GMajor" value="-2" ><img src="img/gs1.png">G dur<br>ト長調</label></li>
-      <li><label><input type="radio" name="key" id="DMajor" value="-7" ><img src="img/gs2.png">D dur<br>ニ長調</label></li>
-      <li><label><input type="radio" name="key" id="AMajor" value="0" ><img src="img/gs3.png">A dur<br>イ長調</label></li>
-      <li><label><input type="radio" name="key" id="EMajor" value="-5"><img src="img/gs4.png">E dur<br>ホ長調</label></li>
-      <li><label><input type="radio" name="key" id="HMajor" value="2"><img src="img/gs5.png">H dur<br>ロ長調</label></li>
-      <li><label><input type="radio" name="key" id="FisMajor" value="-3"><img src="img/gs6.png">Fis dur<br>嬰ヘ長調</label></li>
-      <li><label><input type="radio" name="key" id="CisMajor" value="-8"><img src="img/gs7.png">Cis dur<br>嬰ハ長調</label></li>
-      <li><label><input type="radio" name="key" id="aminor" value="0"><img src="img/g0.png">a moll<br>イ短調</label>
-      <li><label><input type="radio" name="key" id="eminor" value="-5"><img src="img/gs1.png">e moll<br>ホ短調</label></li>
-      <li><label><input type="radio" name="key" id="hminor" value="2"><img src="img/gs2.png">h moll<br>ロ短調</label></li>
-      <li><label><input type="radio" name="key" id="fisminor" value="-3"><img src="img/gs3.png">fis moll<br>嬰ヘ短調</label></li>
-      <li><label><input type="radio" name="key" id="cisminor" value="-8"><img src="img/gs4.png">cis moll<br>嬰ハ短調</label></li>
-      <li><label><input type="radio" name="key" id="gisminor" value="-1"><img src="img/gs5.png">gis moll<br>嬰ト短調</label></li>
-      <li><label><input type="radio" name="key" id="disminor" value="-6"><img src="img/gs6.png">dis moll<br>嬰ニ短調</label></li>
-      <li><label><input type="radio" name="key" id="aisminor" value="1"><img src="img/gs7.png">ais moll<br>嬰イ短調</label></li>
+      <li><label><input type="radio" name="key" id="CMajor" value="-9" checked><img src="img/g0.png" width="50%" height="50%">C dur<br>ハ長調</label></li>
+      <li><label><input type="radio" name="key" id="GMajor" value="-2" ><img src="img/gs1.png" width="50%" height="50%">G dur<br>ト長調</label></li>
+      <li><label><input type="radio" name="key" id="DMajor" value="-7" ><img src="img/gs2.png" width="50%" height="50%">D dur<br>ニ長調</label></li>
+      <li><label><input type="radio" name="key" id="AMajor" value="0" ><img src="img/gs3.png" width="50%" height="50%">A dur<br>イ長調</label></li>
+      <li><label><input type="radio" name="key" id="EMajor" value="-5"><img src="img/gs4.png" width="50%" height="50%">E dur<br>ホ長調</label></li>
+      <li><label><input type="radio" name="key" id="HMajor" value="2"><img src="img/gs5.png" width="50%" height="50%">H dur<br>ロ長調</label></li>
+      <li><label><input type="radio" name="key" id="FisMajor" value="-3"><img src="img/gs6.png" width="50%" height="50%">Fis dur<br>嬰ヘ長調</label></li>
+      <li><label><input type="radio" name="key" id="CisMajor" value="-8"><img src="img/gs7.png" width="50%" height="50%">Cis dur<br>嬰ハ長調</label></li>
+      <li><label><input type="radio" name="key" id="aminor" value="0"><img src="img/g0.png" width="50%" height="50%">a moll<br>イ短調</label>
+      <li><label><input type="radio" name="key" id="eminor" value="-5"><img src="img/gs1.png" width="50%" height="50%">e moll<br>ホ短調</label></li>
+      <li><label><input type="radio" name="key" id="hminor" value="2"><img src="img/gs2.png" width="50%" height="50%">h moll<br>ロ短調</label></li>
+      <li><label><input type="radio" name="key" id="fisminor" value="-3"><img src="img/gs3.png" width="50%" height="50%">fis moll<br>嬰ヘ短調</label></li>
+      <li><label><input type="radio" name="key" id="cisminor" value="-8"><img src="img/gs4.png" width="50%" height="50%">cis moll<br>嬰ハ短調</label></li>
+      <li><label><input type="radio" name="key" id="gisminor" value="-1"><img src="img/gs5.png" width="50%" height="50%">gis moll<br>嬰ト短調</label></li>
+      <li><label><input type="radio" name="key" id="disminor" value="-6"><img src="img/gs6.png" width="50%" height="50%">dis moll<br>嬰ニ短調</label></li>
+      <li><label><input type="radio" name="key" id="aisminor" value="1"><img src="img/gs7.png" width="50%" height="50%">ais moll<br>嬰イ短調</label></li>
     </ul>
   </form>
 
