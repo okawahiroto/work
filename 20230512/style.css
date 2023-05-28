@@ -11,3 +11,8 @@ label {
   /* ラベル内の要素を縦方向に中央揃えにする。 */
   align-items: center;
 }
+
+/* ボタンを中央揃え※後からBootstrapに変える。 */
+.buttons {
+  text-align: center;
+}
